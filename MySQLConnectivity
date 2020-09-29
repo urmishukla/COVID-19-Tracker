@@ -1,0 +1,12 @@
+#TRANSFERRING DATA BETWEEN MYSQL AND DATAFRAMES
+
+import pandas as pd
+import mysql.connector as sqlconn
+
+con = sqlconn.connect(host="localhost", user="root", passwd="tiger", database="covid")
+
+if con.is_connected():
+	dataFrame = pd.read_sql("Select * from dailyData;",con)
+	print(dataFrame)
+else:
+	print("MySQL Connection problem")
