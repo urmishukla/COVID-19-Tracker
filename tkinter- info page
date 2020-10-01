@@ -1,0 +1,62 @@
+#importing TKinter module and creating GUI application main window
+import tkinter as tk
+import tkinter.messagebox
+window=tk.Tk()
+
+#code to add widgets below
+
+def press_btn1():
+    symp="Here are some symptoms that people infected with COVID-19 experience:\nMost common symptoms:\nfever\ndry cough\ntiredness\nLess common symptoms:\naches and pains\nsore throat\ndiarrhoea\nconjunctivitis\nheadache\nloss of taste or smell\na rash on skin, or discolouration of fingers or toes\nSerious symptoms:\ndifficulty breathing or shortness of breath\nchest pain or pressure\nloss of speech or movement\nSeek immediate medical attention if you have serious symptoms. Always call before visiting your doctor or health facility.\nPeople with mild symptoms who are otherwise healthy should manage their symptoms at home.\nOn average it takes 5–6 days from when someone is infected with the virus for symptoms to show, however it can take up to 14 days.\nInformation sourced from who.int" 
+    tkinter.messagebox.showinfo("Symptoms",symp)
+
+def press_btn2():
+    treatment="Self-care\nIf you feel sick you should rest, drink plenty of fluid, and eat nutritious food. Stay in a separate room from other family members, and use a dedicated bathroom if possible. Clean and disinfect frequently touched surfaces.\nEveryone should keep a healthy lifestyle at home. Maintain a healthy diet, sleep, stay active, and make social contact with loved ones through the phone or internet. Children need extra love and attention from adults during difficult times. Keep to regular routines and schedules as much as possible.\nIt is normal to feel sad, stressed, or confused during a crisis. Talking to people you trust, such as friends and family, can help. If you feel overwhelmed, talk to a health worker or counsellor.\nMedical treatments\nIf you have mild symptoms and are otherwise healthy, self-isolate and contact your medical provider or a COVID-19 information line for advice.\nSeek medical care if you have a fever, a cough, and difficulty breathing. Call in advance.\nsourced from who.int"
+    tkinter.messagebox.showinfo("Treatment",treatment)
+    
+def press_btn3():
+    prev="To prevent the spread of COVID-19:\nClean your hands often. Use soap and water, or an alcohol-based hand rub.\nMaintain a safe distance from anyone who is coughing or sneezing.\nWear a mask when physical distancing is not possible.\nDon’t touch your eyes, nose or mouth.\nCover your nose and mouth with your bent elbow or a tissue when you cough or sneeze.\nStay home if you feel unwell.\nsourced from who.int"
+    tkinter.messagebox.showinfo("Prevention",prev)
+    
+def press_btn4():
+    mh="Be kind to yourself. Go easy on yourself if you’re experiencing more depression or anxiety than usual. You’re not alone in your struggles.\nMaintain a routine as best you can. Even if you’re stuck at home, try to stick to your regular sleep, school, meal, or work schedule. This can help you maintain a sense of normalcy.\nTake time out for activities you enjoy. Read a good book, watch a comedy, play a fun board or video game, make something—whether it’s a new recipe, a craft, or a piece of art. It doesn’t matter what you do, as long as it takes you out of your worries.\nGet out in nature, if possible. Sunshine and fresh air will do you good. Even a walk around your neighborhood can make you feel better. Just be sure to avoid crowds, keep your distance from people you encounter, and obey restrictions in your area.\nFind ways to exercise. Staying active will help you release anxiety, relieve stress, and manage your mood. While gym and group classes may be out, you can still cycle, hike, or walk. Or if you’re stuck at home, look online for exercise videos you can follow. There are many things you can do even without equipment, such as yoga and exercises that use your own bodyweight.\nAvoid self-medicating. Be careful that you’re not using alcohol or other substances to deal with anxiety or depression. If you tend to overdo it in the best of times, it may be a good idea to avoid for now.\nTake up a relaxation practice. When stressors throw your nervous system out of balance, relaxation techniques such as deep breathing, meditation, and yoga can bring you back into a state of equilibrium. Regular practice delivers the greatest benefits, so see if you can set aside even a little time every day.\n sourced from helpguide.org"
+    tkinter.messagebox.showinfo("Mental Health at Home",mh)    
+
+intro=tk.Label(master=window,
+               text="What is COVID-19?\nCheck out the information below!",
+               foreground="navy",
+               background="lavender")
+intro.pack()
+    
+frm2=tk.Frame(master=window,
+              bg="purple")
+frm2.pack()
+
+btn1=tk.Button(master=frm2,
+               text="Symptoms",
+               command=press_btn1(),
+               foreground="Violet Red4",
+               background="PaleVioletRed1")
+btn1.pack(side=tk.LEFT)
+
+btn2=tk.Button(master=frm2,
+               text="Treatment", 
+               command=press_btn2(),
+               foreground="VioletRed4",
+               background="PaleVioletRed1")
+btn2.pack(side=tk.LEFT)
+
+btn3=tk.Button(master=frm2,
+               text="Prevention",
+               command=press_btn3(),
+               foreground="VioletRed4",
+               background="PaleVioletRed1")
+btn3.pack(side=tk.LEFT)
+
+btn4=tk.Button(master=frm2,
+               text="Mental Health",
+               command=press_btn4(),
+               foreground="VioletRed4",
+               background="PaleVioletRed1")
+btn4.pack(side=tk.LEFT)
+
+window.mainloop()
