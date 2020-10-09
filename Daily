@@ -1,0 +1,233 @@
+#PLOTTING THE GRAPH FOR TOTAL CASES DAILY
+import matplotlib.pyplot as plt
+import pandas as pd
+import tkinter as tk
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import mplcyberpunk
+
+window2= tk.Tk() 
+window2.minsize(800,1000)
+window2.title('IP Project 2020')
+#window2.attributes("-fullscreen", True)
+
+plt.style.use("cyberpunk")
+
+frame1 = tk.Frame()
+frame1.pack()
+
+monthVar = StringVar(frame1)
+monthVar.set("Select") # initial value
+option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
+option.config(width=10)
+option.grid(column=3, row=2)
+
+frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+    
+figure1 = plt.Figure(figsize=(6,6), dpi=100)
+ax1 = figure1.add_subplot(111)
+line1 = FigureCanvasTkAgg(figure1, frame2)
+line1.get_tk_widget().pack(fill=tk.BOTH)
+# line1.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH)
+dataFrame.plot(kind='line', x='reportDate', y='confirmed', color='magenta',ax=ax1)
+dataFrame.plot(kind='line', x='reportDate', y='recovered', color='cyan',ax=ax1)
+dataFrame.plot(kind='line', x='reportDate', y='deceased', color= 'yellow',ax=ax1)
+ax1.set_title('Covid-19 Trends in MH for All Periods')
+ax1.set_xlabel('Date')   
+ax1.set_ylabel('Count of Cases')   
+ax1.legend(loc='best')
+
+def showAll():
+
+    def showMonth1(*args):
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        
+        mon=monthVar.get()
+        if mon=="All Periods":
+            nDataFrame=dataFrame
+        else:
+            nDataFrame = dataFrame[(dataFrame.reportMonth==mon)]
+        #print("value is", monthVar.get())
+        
+        figure1 = plt.Figure(figsize=(6,6), dpi=100)
+        ax1 = figure1.add_subplot(111)
+        line1 = FigureCanvasTkAgg(figure1, frame2)
+        line1.get_tk_widget().pack(fill=tk.BOTH)
+        # line1.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH)
+        nDataFrame.plot(kind='line', x='reportDate', y='confirmed', color='magenta',ax=ax1)
+        nDataFrame.plot(kind='line', x='reportDate', y='recovered', color='cyan',ax=ax1)
+        nDataFrame.plot(kind='line', x='reportDate', y='deceased', color= 'yellow',ax=ax1)
+        ax1.set_title('Covid-19 Trends in MH for %s'%(mon,))
+        ax1.set_xlabel('Date')   
+        ax1.set_ylabel('Count of Cases')   
+        ax1.legend(loc='best')
+        
+    monthVar = StringVar(frame1)
+    monthVar.set("Select") # initial value
+    option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
+    option.config(width=10)
+    option.grid(column=3, row=2)
+     
+    frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+    frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+    
+    figure1 = plt.Figure(figsize=(6,6), dpi=100)
+    ax1 = figure1.add_subplot(111)
+    line1 = FigureCanvasTkAgg(figure1, frame2)
+    line1.get_tk_widget().pack(fill=tk.BOTH)
+    # line1.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH)
+    dataFrame.plot(kind='line', x='reportDate', y='confirmed', color='magenta',ax=ax1)
+    dataFrame.plot(kind='line', x='reportDate', y='recovered', color='cyan',ax=ax1)
+    dataFrame.plot(kind='line', x='reportDate', y='deceased', color= 'yellow',ax=ax1)
+    ax1.set_title('Covid-19 Trends in MH for All Periods')
+    ax1.set_xlabel('Date')   
+    ax1.set_ylabel('Count of Cases')   
+    ax1.legend(loc='best')    
+       
+    
+
+def showConfirmed():
+
+    def showMonth1(*args):
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        
+        mon=monthVar.get()
+        if mon=="All Periods":
+            nDataFrame=dataFrame
+        else:
+            nDataFrame = dataFrame[(dataFrame.reportMonth==mon)]
+        #print("value is", monthVar.get())
+        
+        figure1 = plt.Figure(figsize=(6,6), dpi=100)
+        ax1 = figure1.add_subplot(111)
+        line1 = FigureCanvasTkAgg(figure1, frame2)
+        line1.get_tk_widget().pack(fill=tk.BOTH)
+        # line1.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH)
+        nDataFrame.plot(kind='line', x='reportDate', y='confirmed', color='magenta',ax=ax1)
+        ax1.set_title('Covid-19 Confirmed Cases in MH for %s'%(mon,))
+        ax1.set_xlabel('Date')   
+        ax1.set_ylabel('Count of Cases')   
+        ax1.legend(loc='best')
+        
+    monthVar = StringVar(frame1)
+    monthVar.set("Select") # initial value
+    option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
+    option.config(width=10)
+    option.grid(column=3, row=2)
+    
+    frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+    frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+    
+    figure1 = plt.Figure(figsize=(6,6), dpi=100)
+    ax1 = figure1.add_subplot(111)
+    line1 = FigureCanvasTkAgg(figure1, frame2)
+    line1.get_tk_widget().pack(fill=tk.BOTH)
+    dataFrame.plot(kind='line', x='reportDate', y='confirmed', color= 'magenta',ax=ax1)
+    ax1.set_title('Covid-19 Confirmed Cases Trends in MH')
+    ax1.set_xlabel('Date')   
+    ax1.set_ylabel('Count of Cases')   
+    ax1.legend(loc='best')   
+
+def showRecovered():
+    def showMonth1(*args):
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        
+        mon=monthVar.get()
+        if mon=="All Periods":
+            nDataFrame=dataFrame
+        else:
+            nDataFrame = dataFrame[(dataFrame.reportMonth==mon)]
+        #print("value is", monthVar.get())
+        
+        figure1 = plt.Figure(figsize=(6,6), dpi=100)
+        ax1 = figure1.add_subplot(111)
+        line1 = FigureCanvasTkAgg(figure1, frame2)
+        line1.get_tk_widget().pack(fill=tk.BOTH)
+        # line1.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH)
+        nDataFrame.plot(kind='line', x='reportDate', y='recovered', color='magenta',ax=ax1)
+        ax1.set_title('Covid-19 Recovery Trends in MH for %s'%(mon,))
+        ax1.set_xlabel('Date')   
+        ax1.set_ylabel('Count of Cases')   
+        ax1.legend(loc='best')
+        
+    monthVar = StringVar(frame1)
+    monthVar.set("Select") # initial value
+    option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
+    option.config(width=10)
+    option.grid(column=3, row=2)
+    
+    frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+    frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+    
+    figure1 = plt.Figure(figsize=(6,6), dpi=100)
+    ax1 = figure1.add_subplot(111)
+    line1 = FigureCanvasTkAgg(figure1, frame2)
+    line1.get_tk_widget().pack(fill=tk.BOTH)
+    dataFrame.plot(kind='line', x='reportDate', y='recovered', color= 'cyan',ax=ax1)
+    ax1.set_title('Covid-19 Recovery Trends in MH')
+    ax1.set_xlabel('Date')   
+    ax1.set_ylabel('Count of Cases')   
+    ax1.legend(loc='best')   
+
+def showDeceased():
+    def showMonth1(*args):
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        
+        mon=monthVar.get()
+        if mon=="All Periods":
+            nDataFrame=dataFrame
+        else:
+            nDataFrame = dataFrame[(dataFrame.reportMonth==mon)]
+        #print("value is", monthVar.get())
+        
+        figure1 = plt.Figure(figsize=(6,6), dpi=100)
+        ax1 = figure1.add_subplot(111)
+        line1 = FigureCanvasTkAgg(figure1, frame2)
+        line1.get_tk_widget().pack(fill=tk.BOTH)
+        # line1.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH)
+        nDataFrame.plot(kind='line', x='reportDate', y='deceased', color='magenta',ax=ax1)
+        ax1.set_title('Covid-19 Deceased Trends in MH for %s'%(mon,))
+        ax1.set_xlabel('Date')   
+        ax1.set_ylabel('Count of Cases')   
+        ax1.legend(loc='best')
+        
+    monthVar = StringVar(frame1)
+    monthVar.set("Select") # initial value
+    option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
+    option.config(width=10)
+    option.grid(column=3, row=2)
+    
+    frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+    frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+    
+    figure1 = plt.Figure(figsize=(6,6), dpi=100)
+    ax1 = figure1.add_subplot(111)
+    line1 = FigureCanvasTkAgg(figure1, frame2)
+    line1.get_tk_widget().pack(fill=tk.BOTH)
+    dataFrame.plot(kind='line', x='reportDate', y='deceased', color= 'yellow',ax=ax1)
+    ax1.set_title('Covid-19 Deceased Trends in MH')
+    ax1.set_xlabel('Date')   
+    ax1.set_ylabel('Count of Cases')   
+    ax1.legend(loc='best')   
+
+btnAll = tk.Button(frame1, text="All", width=15, command=showAll).grid(column=1, row=1)
+
+btnConfirmed = tk.Button(frame1, text="Confirmed", width=15, command=showConfirmed).grid(column=2, row=1)
+
+btnRecovered = tk.Button(frame1, text="Recovered", width=15, command=showRecovered).grid(column=3, row=1)
+
+btnDeceased = tk.Button(frame1, text="Deceased", width=15, command=showDeceased).grid(column=4, row=1)
+
+btnExit = tk.Button(frame1, text="Exit", width=15, command=window2.destroy).grid(column=5, row=1)
+
+# Add glow effects-Optional
+#mplcyberpunk.add_glow_effects()
+
+for child in frame1.winfo_children(): 
+    child.grid_configure(padx=5, pady=25)
+    
+window2.mainloop()
