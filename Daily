@@ -1,7 +1,23 @@
+#TRANSFERRING DATA BETWEEN MYSQL AND DATAFRAMES
+
+import pandas as pd
+import mysql.connector as sqlconn
+
+con = sqlconn.connect(host="localhost", user="root", passwd="tiger", database="covid")
+
+if con.is_connected():
+    dataFrame = pd.read_sql("Select reportDate, monthname(reportDate) as reportMonth, state, confirmed, deceased, recovered from dailyData;",con)
+    #print(dataFrame)
+    dataFrame2 = pd.read_sql("Select * from districtData;",con) 
+    #print(dataFrame2) 
+else:
+	print("MySQL Connection problem")
+
 #PLOTTING THE GRAPH FOR TOTAL CASES DAILY
 import matplotlib.pyplot as plt
 import pandas as pd
 import tkinter as tk
+from tkinter import *
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import mplcyberpunk
 
@@ -9,12 +25,36 @@ window2= tk.Tk()
 window2.minsize(800,1000)
 window2.title('IP Project 2020')
 #window2.attributes("-fullscreen", True)
-
+    
 plt.style.use("cyberpunk")
 
 frame1 = tk.Frame()
 frame1.pack()
 
+def showMonth1(*args):
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        
+        mon=monthVar.get()
+        if mon=="All Periods":
+            nDataFrame=dataFrame
+        else:
+            nDataFrame = dataFrame[(dataFrame.reportMonth==mon)]
+        #print("value is", monthVar.get())
+        
+        figure1 = plt.Figure(figsize=(6,6), dpi=100)
+        ax1 = figure1.add_subplot(111)
+        line1 = FigureCanvasTkAgg(figure1, frame2)
+        line1.get_tk_widget().pack(fill=tk.BOTH)
+        # line1.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH)
+        nDataFrame.plot(kind='line', x='reportDate', y='confirmed', color='magenta',ax=ax1)
+        nDataFrame.plot(kind='line', x='reportDate', y='recovered', color='cyan',ax=ax1)
+        nDataFrame.plot(kind='line', x='reportDate', y='deceased', color= 'yellow',ax=ax1)
+        ax1.set_title('Covid-19 Trends in MH for %s'%(mon,))
+        ax1.set_xlabel('Date')   
+        ax1.set_ylabel('Count of Cases')   
+        ax1.legend(loc='best')
+        
 monthVar = StringVar(frame1)
 monthVar.set("Select") # initial value
 option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
@@ -147,7 +187,7 @@ def showRecovered():
         line1 = FigureCanvasTkAgg(figure1, frame2)
         line1.get_tk_widget().pack(fill=tk.BOTH)
         # line1.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH)
-        nDataFrame.plot(kind='line', x='reportDate', y='recovered', color='magenta',ax=ax1)
+        nDataFrame.plot(kind='line', x='reportDate', y='recovered', color='cyan',ax=ax1)
         ax1.set_title('Covid-19 Recovery Trends in MH for %s'%(mon,))
         ax1.set_xlabel('Date')   
         ax1.set_ylabel('Count of Cases')   
@@ -189,7 +229,7 @@ def showDeceased():
         line1 = FigureCanvasTkAgg(figure1, frame2)
         line1.get_tk_widget().pack(fill=tk.BOTH)
         # line1.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH)
-        nDataFrame.plot(kind='line', x='reportDate', y='deceased', color='magenta',ax=ax1)
+        nDataFrame.plot(kind='line', x='reportDate', y='deceased', color='yellow',ax=ax1)
         ax1.set_title('Covid-19 Deceased Trends in MH for %s'%(mon,))
         ax1.set_xlabel('Date')   
         ax1.set_ylabel('Count of Cases')   
@@ -231,3 +271,4 @@ for child in frame1.winfo_children():
     child.grid_configure(padx=5, pady=25)
     
 window2.mainloop()
+
