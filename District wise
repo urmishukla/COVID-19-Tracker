@@ -18,7 +18,14 @@ frame1.pack()
 dist = StringVar(window3)
 dist.set("Ahmednagar") #asdefaultvalue
 
-option = OptionMenu(frame1, dist, "Ahmednagar", "Akola", "Amravati", "Aurangabad", "Beed")
+option = OptionMenu(frame1, dist, "Ahmednagar", "Akola", "Amravati", "Aurangabad",
+                    "Beed", "Bhandara", "Buldhana", "Chandrapur", "Dhule",
+                    "Gadchiroli", "Gondia", "Hingoli", "Jalgaon", "Jalna",
+                    "Kolhapur", "Latur", "Mumbai City", "Mumbai Suburban",
+                    "Nagpur", "Nanded", "Nandurbar", "Nashik", "Osmanabad",
+                    "Palghar", "Parbhani", "Pune", "Raigad", "Ratnagiri",
+                    "Sangli", "Satara", "Sindhudurg", "Solapur", "Thane",
+                    "Wardha", "Washim", "Yavatmal")
 option.pack()
 
 
@@ -33,7 +40,7 @@ def ok():
     else:
         print("MySQL Connection problem")
         
-    dataFrame4= 
+    
     
     frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
     frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
