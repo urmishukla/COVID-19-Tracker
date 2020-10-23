@@ -1,0 +1,175 @@
+import networkx as nx
+
+import matplotlib.pyplot as plt
+
+from matplotlib import animation
+
+import random
+
+import math
+
+
+
+def simple_update(num, n, layout, G, ax, d, R_0, TL, color_map):
+
+    ax.clear()
+
+    layout = nx.random_layout(G)
+
+
+
+    # Draw the graph with random node colors
+
+    nx.draw_networkx_nodes(G, pos=layout, ax=ax, node_color=list(color_map.values()))
+
+    nx.draw_networkx_edges(G, pos=layout)
+
+    e_r = list(G.edges)
+
+    i = 0
+
+
+
+    while i in range (0, len(e_r)):
+
+
+
+        p_2 = e_r[i][0]
+
+        p_1 = e_r[i][1]
+
+
+
+        r_2 = G.nodes[p_2]['infection']
+
+        r_1 = G.nodes[p_1]['infection']
+
+
+
+        x_2 = float(layout[p_2][0])
+
+        y_2 = float(layout[p_2][1])
+
+        x_1 = float(layout[p_1][0])
+
+        y_1 = float(layout[p_1][1])
+
+
+
+        D = math.sqrt(pow((y_2-y_1),2) + pow((x_2-x_1),2))
+
+        if D < d and ((r_1 > 0) or (r_2 > 0)):
+
+            if (r_1 > r_2):
+
+                r_2 += R_0 * r_1 * random.uniform(0, 3)
+
+                print(p_2, "infected by", p_1, "and", p_2,"'s factor is", r_2)
+
+            else:
+
+                r_1 += R_0 * r_2 * random.uniform(0, 3)
+
+                print(p_1, "infected by", p_2, "and", p_1,"'s factor is", r_1)
+
+        if r_1 > 0:
+
+            color_map[p_1] = 'r'
+
+        if r_2 > 0:
+
+            color_map[p_2] = 'r'
+
+        if r_1 > TL:
+
+            G.remove_node(p_1)
+
+            e_r = list(G.edges)
+
+            del color_map[p_1]
+
+            i = i-1
+
+            print("Removed", p_1)
+
+        if r_2 > TL:
+
+            G.remove_node(p_2)
+
+            e_r = list(G.edges)
+
+            del color_map[p_2]
+
+            i = i-1
+
+            print("Removed", p_2)
+
+
+
+        i = i+1
+
+
+
+    # Set the title
+
+    ax.set_title("Frame {}".format(num))
+
+
+
+
+
+def simple_animation():
+
+
+
+    # Build plot
+
+    fig, ax = plt.subplots(figsize=(20,10))
+
+
+
+    # Create a graph and layout
+
+    n = int(input("Enter number of nodes: ")) # Number of nodes
+
+    m = int(input("Enter number of edges: ")) # Number of edges
+
+    d = float(input("Enter minimum safe distance (between 0 and 1): "))
+
+    G = nx.gnm_random_graph(n, m)
+
+    layout=0
+
+    inf = int(input("Enter number of initial infections: ")) # 3
+
+    R_0 = float(input("Enter R0, or how infectious the virus is (COVID R0 = 4): "))
+
+    TL = float(input("Enter tolerance limit (what level of infection a node is removed): "))
+
+    iterations = int(input("Number of frames: "))
+
+    color_map = {k:'g' for k in range(0,n)}
+
+    print(color_map)
+
+
+
+    nx.set_node_attributes(G, values=0, name='infection')
+
+    for i in range(0,inf):
+
+        G.nodes[i]['infection'] = random.uniform(0,TL)
+
+        print(G.nodes[i])
+
+
+
+    ani = animation.FuncAnimation(fig, simple_update, frames=iterations, fargs=(n, layout, G, ax, d, R_0, TL, color_map), repeat=False)
+
+    # ani.save('animation_1.gif', writer='imagemagick')
+
+
+
+    plt.show()
+    
+simple_animation()
