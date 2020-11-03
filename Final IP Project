@@ -1,0 +1,434 @@
+import tkinter as tk
+from tkinter import *
+#TRANSFERRING DATA BETWEEN MYSQL AND DATAFRAMES
+
+import pandas as pd
+import mysql.connector as sqlconn
+
+con = sqlconn.connect(host="localhost", user="root", passwd="tiger", database="covid")
+
+if con.is_connected():
+    dataFrame = pd.read_sql("Select reportDate, monthname(reportDate) as reportMonth, state, confirmed, deceased, recovered from dailyData;",con)
+    #print(dataFrame)
+    dataFrame2 = pd.read_sql("Select * from districtData;",con) 
+    #print(dataFrame2) 
+else:
+	print("MySQL Connection problem")  
+  
+window = tk.Tk()  
+window.minsize(1400,900)
+window.configure
+window.title('IP Project 2020')
+
+img = PhotoImage(file="background.PNG")      
+label=Label(image=img)
+label.image=img
+label.pack()
+
+frame1 = tk.Frame()
+frame1.pack()
+
+    
+def home():  
+    print("home")
+    frame1 = tk.Frame()
+    frame1.place(relx=0.5, anchor='n', height=200, width=600)
+    intro=tk.Label(master=frame1, text="Final IP Project 2020", foreground="navy", background="lavender")
+    intro.pack()
+    
+    frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+    frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+    
+    img2 = PhotoImage(file="background.PNG")      
+    label2=Label(frame2, image=img2)
+    label2.image=img2
+    label2.pack()      
+
+def advisory():
+    print("advisory")
+    frame1 = tk.Frame()
+    frame1.place(relx=0.5, anchor='n', height=200, width=600)
+    intro=tk.Label(master=frame1, text="What is COVID-19?\nCheck out the information below!", foreground="navy", background="lavender")
+    intro.grid(column=1, row=1, columnspan=6)
+        
+    frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+    frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+    symp=tk.Label(master=frame2, justify='left', wraplength=560, text="Here are some symptoms that people infected with COVID-19 experience:\n\n\nMost common symptoms:\n\nFever\nDry Cough\nTiredness\n\nLess common symptoms:\nAches and pains\nSore Throat\nDiarrhoea\nConjunctivitis\nHeadache\nLoss of Taste or Smell\nA Rash on Skin, or Discolouration of Fingers or Toes\n\nSerious symptoms:\nDifficulty Breathing or Shortness of Breath\nChest Pain or Pressure\nLoss of Speech or Movement\n\n\nSeek immediate medical attention if you have serious symptoms. Always call before visiting your doctor or health facility.\nPeople with mild symptoms who are otherwise healthy should manage their symptoms at home.\nOn average it takes 5–6 days from when someone is infected with the virus for symptoms to show, however it can take up to even 14 days.\n\nInformation sourced from who.int")
+    symp.pack()
+        
+    def showSymptoms():
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        symp=tk.Label(master=frame2, justify='left', wraplength=560, text="Here are some symptoms that people infected with COVID-19 experience:\n\n\nMost common symptoms:\n\nFever\nDry Cough\nTiredness\n\nLess common symptoms:\nAches and pains\nSore Throat\nDiarrhoea\nConjunctivitis\nHeadache\nLoss of Taste or Smell\nA Rash on Skin, or Discolouration of Fingers or Toes\n\nSerious symptoms:\nDifficulty Breathing or Shortness of Breath\nChest Pain or Pressure\nLoss of Speech or Movement\n\n\nSeek immediate medical attention if you have serious symptoms. Always call before visiting your doctor or health facility.\nPeople with mild symptoms who are otherwise healthy should manage their symptoms at home.\nOn average it takes 5–6 days from when someone is infected with the virus for symptoms to show, however it can take up to even 14 days.\n\nInformation sourced from who.int")
+        symp.pack()
+    
+    def showTreatment():
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        treatment=tk.Label(master=frame2, justify='left', wraplength=560, text="Self-care\n\nIf you feel sick you should rest, drink plenty of fluid, and eat nutritious food. Stay in a separate room from other family members, and use a dedicated bathroom if possible. Clean and disinfect frequently touched surfaces.\n\nEveryone should keep a healthy lifestyle at home. Maintain a healthy diet, sleep, stay active, and make social contact with loved ones through the phone or internet. Children need extra love and attention from adults during difficult times. Keep to regular routines and schedules as much as possible.\n\nIt is normal to feel sad, stressed, or confused during a crisis. Talking to people you trust, such as friends and family, can help. If you feel overwhelmed, talk to a health worker or counsellor.\n\nMedical treatments\nIf you have mild symptoms and are otherwise healthy, self-isolate and contact your medical provider or a COVID-19 information line for advice.\n\nSeek medical care if you have a fever, a cough, and difficulty breathing. Call in advance.\n\nsourced from who.int")
+        treatment.pack()
+    
+    def showPrevention():
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        prev=tk.Label(master=frame2, justify='left', wraplength=560, text="To prevent the spread of COVID-19:\n\nClean your hands often. Use soap and water, or an alcohol-based hand rub.\nMaintain a safe distance from anyone who is coughing or sneezing.\nWear a mask when physical distancing is not possible.\nDon’t touch your eyes, nose or mouth.\nCover your nose and mouth with your bent elbow or a tissue when you cough or sneeze.\nStay home if you feel unwell.\n\nsourced from who.int")
+        prev.pack()
+    
+    def showMentalHealth():
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        mh=tk.Label(master=frame2, justify='left', wraplength=560, text="Be kind to yourself. Go easy on yourself if you’re experiencing more depression or anxiety than usual. You’re not alone in your struggles.\n\nMaintain a routine as best you can. Even if you’re stuck at home, try to stick to your regular sleep, school, meal, or work schedule. This can help you maintain a sense of normalcy.\n\nTake time out for activities you enjoy. Read a good book, watch a comedy, play a fun board or video game, make something—whether it’s a new recipe, a craft, or a piece of art. It doesn’t matter what you do, as long as it takes you out of your worries.\n\nGet out in nature, if possible. Sunshine and fresh air will do you good. Even a walk around your neighborhood can make you feel better. Just be sure to avoid crowds, keep your distance from people you encounter, and obey restrictions in your area.\n\nFind ways to exercise. Staying active will help you release anxiety, relieve stress, and manage your mood. While gym and group classes may be out, you can still cycle, hike, or walk. Or if you’re stuck at home, look online for exercise videos you can follow. There are many things you can do even without equipment, such as yoga and exercises that use your own bodyweight.\n\nAvoid self-medicating. Be careful that you’re not using alcohol or other substances to deal with anxiety or depression. If you tend to overdo it in the best of times, it may be a good idea to avoid for now.\n\nTake up a relaxation practice. When stressors throw your nervous system out of balance, relaxation techniques such as deep breathing, meditation, and yoga can bring you back into a state of equilibrium. Regular practice delivers the greatest benefits, so see if you can set aside even a little time every day.\n\n\n Sourced from helpguide.org")
+        mh.pack()
+        
+    empty=tk.Label(master=frame1, text="                     ")
+    empty.grid(column=1, row=2)
+    
+    btnSymptoms = tk.Button(frame1, text ="Symptoms", command = showSymptoms, foreground="VioletRed4", background="PaleVioletRed1").grid(column=2, row=2)
+    
+    btnTreatment = tk.Button(frame1, text ="Treatment", command = showTreatment, foreground="VioletRed4", background="PaleVioletRed1").grid(column=3, row=2)
+    
+    btnPrevention = tk.Button(frame1, text ="Prevention", command = showPrevention, foreground="VioletRed4", background="PaleVioletRed1").grid(column=4, row=2)
+    
+    btnMentalHealth = tk.Button(frame1, text ="Mental Health", command = showMentalHealth, foreground="VioletRed4", background="PaleVioletRed1").grid(column=5, row=2)
+    
+    empty2=tk.Label(master=frame1, text="                       ")
+    empty2.grid(column=6, row=2)
+
+    for child in frame1.winfo_children(): 
+        child.grid_configure(padx=5, pady=25)
+    
+    
+def dailyDataAnalysis():  
+    print("analysis")  
+    #PLOTTING THE GRAPH FOR TOTAL CASES DAILY
+    import matplotlib.pyplot as plt
+    import pandas as pd
+    import tkinter as tk
+    from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+    import mplcyberpunk
+        
+    plt.style.use("cyberpunk")
+    
+    frame1 = tk.Frame()
+    frame1.place(relx=0.5, anchor='n', height=200)
+    for widget in frame1.winfo_children():
+        widget.destroy()
+    
+    
+    def showMonth1(*args):
+            frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+            frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+            
+            mon=monthVar.get()
+            if mon=="All Periods":
+                nDataFrame=dataFrame
+            else:
+                nDataFrame = dataFrame[(dataFrame.reportMonth==mon)]
+            
+            figure1 = plt.Figure(figsize=(6,6), dpi=100)
+            ax1 = figure1.add_subplot(111)
+            line1 = FigureCanvasTkAgg(figure1, frame2)
+            line1.get_tk_widget().pack(fill=tk.BOTH)
+            nDataFrame.plot(kind='line', x='reportDate', y='confirmed', color='magenta',ax=ax1)
+            nDataFrame.plot(kind='line', x='reportDate', y='recovered', color='cyan',ax=ax1)
+            nDataFrame.plot(kind='line', x='reportDate', y='deceased', color= 'yellow',ax=ax1)
+            ax1.set_title('Covid-19 Trends in MH for %s'%(mon,))
+            ax1.set_xlabel('Date')   
+            ax1.set_ylabel('Count of Cases')   
+            ax1.legend(loc='best')
+            
+            
+    monthVar = StringVar(frame1)
+    monthVar.set("Select") # initial value
+    option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
+    option.config(width=10)
+    option.grid(column=2, row=2, columnspan=2)
+    
+    frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+    frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        
+    figure1 = plt.Figure(figsize=(6,6), dpi=100)
+    ax1 = figure1.add_subplot(111)
+    line1 = FigureCanvasTkAgg(figure1, frame2)
+    line1.get_tk_widget().pack(fill=tk.BOTH)
+    dataFrame.plot(kind='line', x='reportDate', y='confirmed', color='magenta',ax=ax1)
+    dataFrame.plot(kind='line', x='reportDate', y='recovered', color='cyan',ax=ax1)
+    dataFrame.plot(kind='line', x='reportDate', y='deceased', color= 'yellow',ax=ax1)
+    ax1.set_title('Covid-19 Trends in MH for All Periods')
+    ax1.set_xlabel('Date')   
+    ax1.set_ylabel('Count of Cases')   
+    ax1.legend(loc='best')
+    
+    def showAll():
+    
+        def showMonth1(*args):
+            frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+            frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+            
+            mon=monthVar.get()
+            if mon=="All Periods":
+                nDataFrame=dataFrame
+            else:
+                nDataFrame = dataFrame[(dataFrame.reportMonth==mon)]
+            #print("value is", monthVar.get())
+            
+            figure1 = plt.Figure(figsize=(6,6), dpi=100)
+            ax1 = figure1.add_subplot(111)
+            line1 = FigureCanvasTkAgg(figure1, frame2)
+            line1.get_tk_widget().pack(fill=tk.BOTH)
+            nDataFrame.plot(kind='line', x='reportDate', y='confirmed', color='magenta',ax=ax1)
+            nDataFrame.plot(kind='line', x='reportDate', y='recovered', color='cyan',ax=ax1)
+            nDataFrame.plot(kind='line', x='reportDate', y='deceased', color= 'yellow',ax=ax1)
+            ax1.set_title('Covid-19 Trends in MH for %s'%(mon,))
+            ax1.set_xlabel('Date')   
+            ax1.set_ylabel('Count of Cases')   
+            ax1.legend(loc='best')
+            
+        monthVar = StringVar(frame1)
+        monthVar.set("Select") # initial value
+        option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
+        option.config(width=10)
+        option.grid(column=2, row=2, columnspan=2)
+         
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        
+        figure1 = plt.Figure(figsize=(6,6), dpi=100)
+        ax1 = figure1.add_subplot(111)
+        line1 = FigureCanvasTkAgg(figure1, frame2)
+        line1.get_tk_widget().pack(fill=tk.BOTH)
+        dataFrame.plot(kind='line', x='reportDate', y='confirmed', color='magenta',ax=ax1)
+        dataFrame.plot(kind='line', x='reportDate', y='recovered', color='cyan',ax=ax1)
+        dataFrame.plot(kind='line', x='reportDate', y='deceased', color= 'yellow',ax=ax1)
+        ax1.set_title('Covid-19 Trends in MH for All Periods')
+        ax1.set_xlabel('Date')   
+        ax1.set_ylabel('Count of Cases')   
+        ax1.legend(loc='best')    
+           
+        
+    
+    def showConfirmed():
+    
+        def showMonth1(*args):
+            frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+            frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+            
+            mon=monthVar.get()
+            if mon=="All Periods":
+                nDataFrame=dataFrame
+            else:
+                nDataFrame = dataFrame[(dataFrame.reportMonth==mon)]
+            #print("value is", monthVar.get())
+            
+            figure1 = plt.Figure(figsize=(6,6), dpi=100)
+            ax1 = figure1.add_subplot(111)
+            line1 = FigureCanvasTkAgg(figure1, frame2)
+            line1.get_tk_widget().pack(fill=tk.BOTH)
+            nDataFrame.plot(kind='line', x='reportDate', y='confirmed', color='magenta',ax=ax1)
+            ax1.set_title('Covid-19 Confirmed Cases in MH for %s'%(mon,))
+            ax1.set_xlabel('Date')   
+            ax1.set_ylabel('Count of Cases')   
+            ax1.legend(loc='best')
+            
+        monthVar = StringVar(frame1)
+        monthVar.set("Select") # initial value
+        option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
+        option.config(width=10)
+        option.grid(column=2, row=2, columnspan=2)
+        
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        
+        figure1 = plt.Figure(figsize=(6,6), dpi=100)
+        ax1 = figure1.add_subplot(111)
+        line1 = FigureCanvasTkAgg(figure1, frame2)
+        line1.get_tk_widget().pack(fill=tk.BOTH)
+        dataFrame.plot(kind='line', x='reportDate', y='confirmed', color= 'magenta',ax=ax1)
+        ax1.set_title('Covid-19 Confirmed Cases Trends in MH')
+        ax1.set_xlabel('Date')   
+        ax1.set_ylabel('Count of Cases')   
+        ax1.legend(loc='best')   
+    
+    def showRecovered():
+        def showMonth1(*args):
+            frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+            frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+            
+            mon=monthVar.get()
+            if mon=="All Periods":
+                nDataFrame=dataFrame
+            else:
+                nDataFrame = dataFrame[(dataFrame.reportMonth==mon)]
+            #print("value is", monthVar.get())
+            
+            figure1 = plt.Figure(figsize=(6,6), dpi=100)
+            ax1 = figure1.add_subplot(111)
+            line1 = FigureCanvasTkAgg(figure1, frame2)
+            line1.get_tk_widget().pack(fill=tk.BOTH)
+            nDataFrame.plot(kind='line', x='reportDate', y='recovered', color='cyan',ax=ax1)
+            ax1.set_title('Covid-19 Recovery Trends in MH for %s'%(mon,))
+            ax1.set_xlabel('Date')   
+            ax1.set_ylabel('Count of Cases')   
+            ax1.legend(loc='best')
+            
+        monthVar = StringVar(frame1)
+        monthVar.set("Select") # initial value
+        option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
+        option.config(width=10)
+        option.grid(column=2, row=2, columnspan=2)
+        
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        
+        figure1 = plt.Figure(figsize=(6,6), dpi=100)
+        ax1 = figure1.add_subplot(111)
+        line1 = FigureCanvasTkAgg(figure1, frame2)
+        line1.get_tk_widget().pack(fill=tk.BOTH)
+        dataFrame.plot(kind='line', x='reportDate', y='recovered', color= 'cyan',ax=ax1)
+        ax1.set_title('Covid-19 Recovery Trends in MH')
+        ax1.set_xlabel('Date')   
+        ax1.set_ylabel('Count of Cases')   
+        ax1.legend(loc='best')   
+    
+    def showDeceased():
+        def showMonth1(*args):
+            frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+            frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+            
+            mon=monthVar.get()
+            if mon=="All Periods":
+                nDataFrame=dataFrame
+            else:
+                nDataFrame = dataFrame[(dataFrame.reportMonth==mon)]
+            #print("value is", monthVar.get())
+            
+            figure1 = plt.Figure(figsize=(6,6), dpi=100)
+            ax1 = figure1.add_subplot(111)
+            line1 = FigureCanvasTkAgg(figure1, frame2)
+            line1.get_tk_widget().pack(fill=tk.BOTH)
+            nDataFrame.plot(kind='line', x='reportDate', y='deceased', color='yellow',ax=ax1)
+            ax1.set_title('Covid-19 Deceased Trends in MH for %s'%(mon,))
+            ax1.set_xlabel('Date')   
+            ax1.set_ylabel('Count of Cases')   
+            ax1.legend(loc='best')
+            
+        monthVar = StringVar(frame1)
+        monthVar.set("Select") # initial value
+        option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
+        option.config(width=10)
+        option.grid(column=2, row=2, columnspan=2)
+        
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        
+        figure1 = plt.Figure(figsize=(6,6), dpi=100)
+        ax1 = figure1.add_subplot(111)
+        line1 = FigureCanvasTkAgg(figure1, frame2)
+        line1.get_tk_widget().pack(fill=tk.BOTH)
+        dataFrame.plot(kind='line', x='reportDate', y='deceased', color= 'yellow',ax=ax1)
+        ax1.set_title('Covid-19 Deceased Trends in MH')
+        ax1.set_xlabel('Date')   
+        ax1.set_ylabel('Count of Cases')   
+        ax1.legend(loc='best')   
+    
+    btnAll = tk.Button(frame1, text="All", width=15, command=showAll, foreground="VioletRed4", background="PaleVioletRed1").grid(column=1, row=1)
+    
+    btnConfirmed = tk.Button(frame1, text="Confirmed", width=15, command=showConfirmed, foreground="VioletRed4", background="PaleVioletRed1").grid(column=2, row=1)
+    
+    btnRecovered = tk.Button(frame1, text="Recovered", width=15, command=showRecovered, foreground="VioletRed4", background="PaleVioletRed1").grid(column=3, row=1)
+    
+    btnDeceased = tk.Button(frame1, text="Deceased", width=15, command=showDeceased, foreground="VioletRed4", background="PaleVioletRed1").grid(column=4, row=1)
+    
+    
+    for child in frame1.winfo_children(): 
+        child.grid_configure(padx=5, pady=25)
+ 
+ 
+
+def districtData():
+    print("data") 
+    plt.style.use("cyberpunk")
+
+    frame1 = tk.Frame()
+    frame1.place(relx=0.5, anchor='n', height=200, width=600)
+    
+    dist = StringVar(window)
+    dist.set("Pune") #asdefaultvalue
+    
+    option = OptionMenu(frame1, dist, "Ahmednagar", "Akola", "Amravati", "Aurangabad",
+                        "Beed", "Bhandara", "Buldhana", "Chandrapur", "Dhule",
+                        "Gadchiroli", "Gondia", "Hingoli", "Jalgaon", "Jalna",
+                        "Kolhapur", "Latur", "Mumbai City", "Mumbai Suburban",
+                        "Nagpur", "Nanded", "Nandurbar", "Nashik", "Osmanabad",
+                        "Palghar", "Parbhani", "Pune", "Raigad", "Ratnagiri",
+                        "Sangli", "Satara", "Sindhudurg", "Solapur", "Thane",
+                        "Wardha", "Washim", "Yavatmal")
+    option.pack()
+    
+    
+    def ok():
+        print(dist.get())
+        distCon = sqlconn.connect(host="localhost", user="root", passwd="tiger", database="covid")
+        s=dist.get()
+        query="Select * from districtData where district= '%s';"%(s,)
+        if distCon.is_connected():
+            dataFrame3 = pd.read_sql(query, distCon)
+            print(dataFrame3)
+        else:
+            print("MySQL Connection problem")
+            
+        
+        
+        frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+        frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+        figure1 = plt.Figure(figsize=(6,6), dpi=100)
+        ax1 = figure1.add_subplot(111)
+        line1 = FigureCanvasTkAgg(figure1, frame2)
+        line1.get_tk_widget().pack(fill=tk.BOTH)
+        dataFrame3.plot(kind='bar', x='district', y='cases', color='magenta',ax=ax1)
+        dataFrame3.plot(kind='bar', x='district', y='recovered', color='yellow',ax=ax1)
+        dataFrame3.plot(kind='bar', x='district', y='deceased', color='cyan',ax=ax1)
+        ax1.set_title('Covid-19 Trends in MH')
+        ax1.set_xlabel('Count of Cases')   
+        ax1.set_ylabel('%s'%(s,))
+        ax1.legend(loc='best')  
+        
+    buttonOk = Button(frame1, text="OK", command=ok, foreground="VioletRed4", background="PaleVioletRed1", width=10)
+    buttonOk.pack()
+    
+    
+    distCon = sqlconn.connect(host="localhost", user="root", passwd="tiger", database="covid")
+    query2="Select * from districtData where district= 'Pune';"
+    if distCon.is_connected():
+        dataFrame4 = pd.read_sql(query2, distCon)
+        print(dataFrame4)
+    else:
+        print("MySQL Connection problem")
+    
+    frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+    frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+    figure1 = plt.Figure(figsize=(6,6), dpi=100)
+    ax1 = figure1.add_subplot(111)
+    line1 = FigureCanvasTkAgg(figure1, frame2)
+    line1.get_tk_widget().pack(fill=tk.BOTH)
+    dataFrame4.plot(kind='bar', x='district', y='cases', color='magenta',ax=ax1)
+    dataFrame4.plot(kind='bar', x='district', y='recovered', color='yellow',ax=ax1)
+    dataFrame4.plot(kind='bar', x='district', y='deceased', color='cyan',ax=ax1)
+    ax1.set_title('Covid-19 Trends in MH')
+    ax1.set_xlabel('Count of Cases')   
+    ax1.set_ylabel('%s'%(s,))
+    ax1.legend(loc='best')
+        
+  
+# create a toplevel menu  
+menubar = Menu(window)  
+menubar.add_command(label="Home", command=home) 
+menubar.add_command(label="Advisory", command=advisory) 
+menubar.add_command(label="Daily Data Analysis", command=dailyDataAnalysis)  
+menubar.add_command(label="District Data Analysis", command=districtData)   
+menubar.add_command(label="Quit", command=window.destroy)  
+  
+# display the menu  
+window.config(menu=menubar)  
+  
+window.mainloop()
