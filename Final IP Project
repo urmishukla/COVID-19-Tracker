@@ -1,7 +1,17 @@
+################################################################
+#                                                              #
+#     PROJECT SURAKSHA - TRACKING COVID-19 IN MAHARASHTRA      #
+#                                                              #
+# THIS IS THE INFORMATICS PRACTICES PROJECT FOR CBSE 2020-21   #
+# TEAM MEMBERS: NIDHI UPASANI, URMI SHUKLA AND LABONI DUTTAROY #
+#         OF CLASS XII I-1, THE ORCHID SCHOOL, PUNE            #
+#                                                              #        
+################################################################
+
 import tkinter as tk
 from tkinter import *
-#TRANSFERRING DATA BETWEEN MYSQL AND DATAFRAMES
 
+#TRANSFERRING DATA BETWEEN MYSQL AND DATAFRAMES
 import pandas as pd
 import mysql.connector as sqlconn
 
@@ -14,13 +24,16 @@ if con.is_connected():
     #print(dataFrame2) 
 else:
 	print("MySQL Connection problem")  
-  
+
+
+#CREATING THE MAIN WINDOW  
 window = tk.Tk()  
 window.minsize(1400,900)
 window.configure
-window.title('IP Project 2020')
+window.title('IP Project 2020') #TITLE
 
-img = PhotoImage(file="background.PNG")      
+#BACKGROUND IMAGE
+img = PhotoImage(file="bg.png")      
 label=Label(image=img)
 label.image=img
 label.pack()
@@ -28,52 +41,70 @@ label.pack()
 frame1 = tk.Frame()
 frame1.pack()
 
-    
+frame2 = tk.Frame(borderwidth=5)
+frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
+
+img2 = PhotoImage(file="cover.png")      
+label2=Label(frame2, image=img2)
+label2.image=img2
+label2.pack()
+
+#FUNCTION TO INVOKE HOME MENU    
 def home():  
     print("home")
     frame1 = tk.Frame()
     frame1.place(relx=0.5, anchor='n', height=200, width=600)
-    intro=tk.Label(master=frame1, text="Final IP Project 2020", foreground="navy", background="lavender")
-    intro.pack()
-    
-    frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+
+    img2 = PhotoImage(file="f1.png")      
+    label2=Label(frame1, image=img2)
+    label2.image=img2
+    label2.pack()
+
+    frame2 = tk.Frame(borderwidth=5)
     frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
     
-    img2 = PhotoImage(file="cover.PNG")      
+    img2 = PhotoImage(file="cover.png")      
     label2=Label(frame2, image=img2)
     label2.image=img2
     label2.pack()      
 
+#FUNCTION TO INVOKE ADVISORY MENU
 def advisory():
     print("advisory")
+    #TOP FRAME CONTAINING BUTTONS
     frame1 = tk.Frame()
     frame1.place(relx=0.5, anchor='n', height=200, width=600)
     intro=tk.Label(master=frame1, text="What is COVID-19?\nCheck out the information below!", foreground="navy", background="lavender")
     intro.grid(column=1, row=1, columnspan=6)
         
-    frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
+    #THIS CODE BLOCK IS TO DISPLAY "SYMPTOMS" TEXT BY DEFAULT
+    frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15) #BOTTOM FRAME TO DISPLAY TEXT
     frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
     symp=tk.Label(master=frame2, justify='left', wraplength=560, text="Here are some symptoms that people infected with COVID-19 experience:\n\n\nMost common symptoms:\n\nFever\nDry Cough\nTiredness\n\nLess common symptoms:\nAches and pains\nSore Throat\nDiarrhoea\nConjunctivitis\nHeadache\nLoss of Taste or Smell\nA Rash on Skin, or Discolouration of Fingers or Toes\n\nSerious symptoms:\nDifficulty Breathing or Shortness of Breath\nChest Pain or Pressure\nLoss of Speech or Movement\n\n\nSeek immediate medical attention if you have serious symptoms. Always call before visiting your doctor or health facility.\nPeople with mild symptoms who are otherwise healthy should manage their symptoms at home.\nOn average it takes 5–6 days from when someone is infected with the virus for symptoms to show, however it can take up to even 14 days.\n\nInformation sourced from who.int")
     symp.pack()
-        
+    
+    #FUNCTION FOR SYMPTOMS BUTTON
     def showSymptoms():
         frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
         frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
         symp=tk.Label(master=frame2, justify='left', wraplength=560, text="Here are some symptoms that people infected with COVID-19 experience:\n\n\nMost common symptoms:\n\nFever\nDry Cough\nTiredness\n\nLess common symptoms:\nAches and pains\nSore Throat\nDiarrhoea\nConjunctivitis\nHeadache\nLoss of Taste or Smell\nA Rash on Skin, or Discolouration of Fingers or Toes\n\nSerious symptoms:\nDifficulty Breathing or Shortness of Breath\nChest Pain or Pressure\nLoss of Speech or Movement\n\n\nSeek immediate medical attention if you have serious symptoms. Always call before visiting your doctor or health facility.\nPeople with mild symptoms who are otherwise healthy should manage their symptoms at home.\nOn average it takes 5–6 days from when someone is infected with the virus for symptoms to show, however it can take up to even 14 days.\n\nInformation sourced from who.int")
         symp.pack()
     
+    #FUNCTION FOR TREATMENT BUTTON
     def showTreatment():
         frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
         frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
         treatment=tk.Label(master=frame2, justify='left', wraplength=560, text="Self-care\n\nIf you feel sick you should rest, drink plenty of fluid, and eat nutritious food. Stay in a separate room from other family members, and use a dedicated bathroom if possible. Clean and disinfect frequently touched surfaces.\n\nEveryone should keep a healthy lifestyle at home. Maintain a healthy diet, sleep, stay active, and make social contact with loved ones through the phone or internet. Children need extra love and attention from adults during difficult times. Keep to regular routines and schedules as much as possible.\n\nIt is normal to feel sad, stressed, or confused during a crisis. Talking to people you trust, such as friends and family, can help. If you feel overwhelmed, talk to a health worker or counsellor.\n\nMedical treatments\nIf you have mild symptoms and are otherwise healthy, self-isolate and contact your medical provider or a COVID-19 information line for advice.\n\nSeek medical care if you have a fever, a cough, and difficulty breathing. Call in advance.\n\nsourced from who.int")
         treatment.pack()
     
+    #FUNCTION FOR PREVENTION BUTTON
     def showPrevention():
         frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
         frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
         prev=tk.Label(master=frame2, justify='left', wraplength=560, text="To prevent the spread of COVID-19:\n\nClean your hands often. Use soap and water, or an alcohol-based hand rub.\nMaintain a safe distance from anyone who is coughing or sneezing.\nWear a mask when physical distancing is not possible.\nDon’t touch your eyes, nose or mouth.\nCover your nose and mouth with your bent elbow or a tissue when you cough or sneeze.\nStay home if you feel unwell.\n\nsourced from who.int")
         prev.pack()
     
+    #FUNCTION FOR MENTAL HEALTH BUTTON
     def showMentalHealth():
         frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
         frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
@@ -83,6 +114,7 @@ def advisory():
     empty=tk.Label(master=frame1, text="                     ")
     empty.grid(column=1, row=2)
     
+    #BUTTON CONTROLS PLACED SIDE-BY-SIDE
     btnSymptoms = tk.Button(frame1, text ="Symptoms", command = showSymptoms, foreground="VioletRed4", background="PaleVioletRed1").grid(column=2, row=2)
     
     btnTreatment = tk.Button(frame1, text ="Treatment", command = showTreatment, foreground="VioletRed4", background="PaleVioletRed1").grid(column=3, row=2)
@@ -98,23 +130,26 @@ def advisory():
         child.grid_configure(padx=5, pady=25)
     
     
+    
+#FUNCTION TO INVOKE DAILY DATA ANALYSIS MENU   
 def dailyDataAnalysis():  
-    print("analysis")  
-    #PLOTTING THE GRAPH FOR TOTAL CASES DAILY
-    import matplotlib.pyplot as plt
-    import pandas as pd
+    print("analysis")
+    import matplotlib.pyplot as plt #LIBRARY FOR PLOTTING GRAPHS
+    import pandas as pd #LIBRARY FOR DATAFRAME
     import tkinter as tk
     from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-    import mplcyberpunk
         
     plt.style.use("cyberpunk")
     
+    #TOP FRAME CONTAINING BUTTONS AND DROP-DOWN OPTION
     frame1 = tk.Frame()
     frame1.place(relx=0.5, anchor='n', height=200)
-    for widget in frame1.winfo_children():
-        widget.destroy()
     
-    
+    intro=tk.Label(master=frame1, text="Daily Analysis of COVID-19 Cases in Maharashtra", foreground="navy", background="lavender")
+    intro.grid(column=1, row=1, columnspan=4)
+
+
+    #FUNCTION FOR DISPLAYING "ALL MONTHS" DATA BY DEFAULT
     def showMonth1(*args):
             frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
             frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
@@ -142,7 +177,7 @@ def dailyDataAnalysis():
     monthVar.set("Select") # initial value
     option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
     option.config(width=10)
-    option.grid(column=2, row=2, columnspan=2)
+    option.grid(column=2, row=3, columnspan=2)
     
     frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
     frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
@@ -159,8 +194,11 @@ def dailyDataAnalysis():
     ax1.set_ylabel('Count of Cases')   
     ax1.legend(loc='best')
     
-    def showAll():
     
+    #FUNCTION FOR DISPLAYING ALL METRICS TOGETHER
+    def showAll():
+        
+        #FUNCTION FOR DISPLAYING SELECTED MONTH DATA
         def showMonth1(*args):
             frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
             frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
@@ -188,7 +226,7 @@ def dailyDataAnalysis():
         monthVar.set("Select") # initial value
         option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
         option.config(width=10)
-        option.grid(column=2, row=2, columnspan=2)
+        option.grid(column=2, row=3, columnspan=2)
          
         frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
         frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
@@ -206,9 +244,10 @@ def dailyDataAnalysis():
         ax1.legend(loc='best')    
            
         
-    
+    #FUNCTION FOR DISPLAYING "CONFIRMED CASES" 
     def showConfirmed():
-    
+        
+        #FUNCTION FOR DISPLAYING SELECTED MONTH DATA
         def showMonth1(*args):
             frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
             frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
@@ -234,7 +273,7 @@ def dailyDataAnalysis():
         monthVar.set("Select") # initial value
         option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
         option.config(width=10)
-        option.grid(column=2, row=2, columnspan=2)
+        option.grid(column=2, row=3, columnspan=2)
         
         frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
         frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
@@ -249,7 +288,11 @@ def dailyDataAnalysis():
         ax1.set_ylabel('Count of Cases')   
         ax1.legend(loc='best')   
     
+    
+    #FUNCTION FOR DISPLAYING "RECOVERED CASES"
     def showRecovered():
+        
+        #FUNCTION FOR DISPLAYING SELECTED MONTH DATA
         def showMonth1(*args):
             frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
             frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
@@ -275,7 +318,7 @@ def dailyDataAnalysis():
         monthVar.set("Select") # initial value
         option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
         option.config(width=10)
-        option.grid(column=2, row=2, columnspan=2)
+        option.grid(column=2, row=3, columnspan=2)
         
         frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
         frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
@@ -290,7 +333,11 @@ def dailyDataAnalysis():
         ax1.set_ylabel('Count of Cases')   
         ax1.legend(loc='best')   
     
+    
+    #FUNCTION FOR DISPLAYING "DECEASED CASES"
     def showDeceased():
+        
+        #FUNCTION FOR DISPLAYING SELECTED MONTH DATA
         def showMonth1(*args):
             frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
             frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
@@ -316,7 +363,7 @@ def dailyDataAnalysis():
         monthVar.set("Select") # initial value
         option = OptionMenu(frame1, monthVar, "All Periods", "March", "April", "May", "June", "July", "August", "September", "October", command=showMonth1)
         option.config(width=10)
-        option.grid(column=2, row=2, columnspan=2)
+        option.grid(column=2, row=3, columnspan=2)
         
         frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
         frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
@@ -331,30 +378,42 @@ def dailyDataAnalysis():
         ax1.set_ylabel('Count of Cases')   
         ax1.legend(loc='best')   
     
-    btnAll = tk.Button(frame1, text="All", width=15, command=showAll, foreground="VioletRed4", background="PaleVioletRed1").grid(column=1, row=1)
+    #BUTTON CONTROLS PLACED SIDE-BY-SIDE
+    btnAll = tk.Button(frame1, text="All", width=15, command=showAll, foreground="VioletRed4", background="PaleVioletRed1").grid(column=1, row=2)
     
-    btnConfirmed = tk.Button(frame1, text="Confirmed", width=15, command=showConfirmed, foreground="VioletRed4", background="PaleVioletRed1").grid(column=2, row=1)
+    btnConfirmed = tk.Button(frame1, text="Confirmed", width=15, command=showConfirmed, foreground="VioletRed4", background="PaleVioletRed1").grid(column=2, row=2)
     
-    btnRecovered = tk.Button(frame1, text="Recovered", width=15, command=showRecovered, foreground="VioletRed4", background="PaleVioletRed1").grid(column=3, row=1)
+    btnRecovered = tk.Button(frame1, text="Recovered", width=15, command=showRecovered, foreground="VioletRed4", background="PaleVioletRed1").grid(column=3, row=2)
     
-    btnDeceased = tk.Button(frame1, text="Deceased", width=15, command=showDeceased, foreground="VioletRed4", background="PaleVioletRed1").grid(column=4, row=1)
-    
+    btnDeceased = tk.Button(frame1, text="Deceased", width=15, command=showDeceased, foreground="VioletRed4", background="PaleVioletRed1").grid(column=4, row=2)
     
     for child in frame1.winfo_children(): 
-        child.grid_configure(padx=5, pady=25)
+        child.grid_configure(padx=10, pady=15)
  
+    
  
-
+#FUNCTION TO INVOKE DISTRICT DATA ANALYSIS MENU   
 def districtData():
     print("data") 
     plt.style.use("cyberpunk")
-
+    
+    #TOP FRAME CONTAINING DROP-DOWN OPTION 
     frame1 = tk.Frame()
     frame1.place(relx=0.5, anchor='n', height=200, width=600)
     
-    dist = StringVar(window)
-    dist.set("Pune") #asdefaultvalue
+    empty0=tk.Label(master=frame1, text="   ")
+    empty0.pack()
     
+    intro=tk.Label(master=frame1, text="District-wise Analysis of COVID-19 Cases in Maharashtra", foreground="navy", background="lavender")
+    intro.pack()
+    
+    empty1=tk.Label(master=frame1, text="   ")
+    empty1.pack()
+    
+    dist = StringVar(window)
+    dist.set("Pune") #AS DEFAULT VALUE
+    
+    #DROP-DOWN OPTION MENU WITH POSSIBLE DISTRICT VALUES
     option = OptionMenu(frame1, dist, "Ahmednagar", "Akola", "Amravati", "Aurangabad",
                         "Beed", "Bhandara", "Buldhana", "Chandrapur", "Dhule",
                         "Gadchiroli", "Gondia", "Hingoli", "Jalgaon", "Jalna",
@@ -365,12 +424,18 @@ def districtData():
                         "Wardha", "Washim", "Yavatmal")
     option.pack()
     
+    empty2=tk.Label(master=frame1, text="   ")
+    empty2.pack()
     
+    
+    #FUNCTION FOR SUBMITTING VALUE ON CLICK
     def ok():
         print(dist.get())
+        
+        #CONNECTING TO MYSQL DATABASE FOR DISTRICT DATA
         distCon = sqlconn.connect(host="localhost", user="root", passwd="tiger", database="covid")
         s=dist.get()
-        query="Select * from districtData where district= '%s';"%(s,)
+        query="Select * from districtData where district= '%s';"%(s,) #SELECTED OPTION PASSED AS A PARAMETER TO THE WHERE CLAUSE
         if distCon.is_connected():
             dataFrame3 = pd.read_sql(query, distCon)
             print(dataFrame3)
@@ -378,7 +443,7 @@ def districtData():
             print("MySQL Connection problem")
             
         
-        
+        #BOTTOM FRAME TO DISPLAY GRAPHS
         frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
         frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
         figure1 = plt.Figure(figsize=(6,6), dpi=100)
@@ -392,11 +457,12 @@ def districtData():
         ax1.set_xlabel('Count of Cases')   
         ax1.set_ylabel('%s'%(s,))
         ax1.legend(loc='best')  
-        
+    
+    #OK BUTTON
     buttonOk = Button(frame1, text="OK", command=ok, foreground="VioletRed4", background="PaleVioletRed1", width=10)
     buttonOk.pack()
     
-    
+    #THIS CODE BLOCK IS TO DISPLAY "PUNE" DATA BY DEFAULT
     distCon = sqlconn.connect(host="localhost", user="root", passwd="tiger", database="covid")
     query2="Select * from districtData where district= 'Pune';"
     if distCon.is_connected():
@@ -404,7 +470,6 @@ def districtData():
         print(dataFrame4)
     else:
         print("MySQL Connection problem")
-    
     frame2 = tk.Frame(relief=tk.GROOVE, borderwidth=15)
     frame2.place(relx=.5, rely=.5, anchor='c', height=600, width=600)
     figure1 = plt.Figure(figsize=(6,6), dpi=100)
@@ -418,17 +483,18 @@ def districtData():
     ax1.set_xlabel('Count of Cases')   
     ax1.set_ylabel('%s'%(s,))
     ax1.legend(loc='best')
-        
-  
-# create a toplevel menu  
+    
+    
+    
+#CREATING A TOP-LEVEL MENU  
 menubar = Menu(window)  
 menubar.add_command(label="Home", command=home) 
 menubar.add_command(label="Advisory", command=advisory) 
 menubar.add_command(label="Daily Data Analysis", command=dailyDataAnalysis)  
 menubar.add_command(label="District Data Analysis", command=districtData)   
-menubar.add_command(label="Quit", command=window.destroy)  
+menubar.add_command(label="Quit", command=window.destroy) #DESTROYING THE MAIN WINDOW  
   
-# display the menu  
+#DISPLAYING THE MENU  
 window.config(menu=menubar)  
   
 window.mainloop()
